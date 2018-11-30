@@ -1,0 +1,40 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="NkdbModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="Tribe">
+    <Key>
+      <PropertyRef Name="TribeId" />
+    </Key>
+    <Property Name="TribeId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="TribeName" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="Visible" Type="bit" Nullable="false" />
+  </EntityType>
+  <EntityType Name="User">
+    <Key>
+      <PropertyRef Name="UserID" />
+    </Key>
+    <Property Name="UserID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="EmailAddress" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="Password" Type="varchar" MaxLength="100" Nullable="false" />
+    <Property Name="Firstname" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="Middlename" Type="varchar" MaxLength="50" />
+    <Property Name="Lastname" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="IDNumber" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="TribeId" Type="int" />
+    <Property Name="Age" Type="int" />
+  </EntityType>
+  <Function Name="GetTribes" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+  <Function Name="RegisterUser" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="Firstname" Type="varchar" Mode="In" />
+    <Parameter Name="Middlename" Type="varchar" Mode="In" />
+    <Parameter Name="Lastname" Type="varchar" Mode="In" />
+    <Parameter Name="IDNumber" Type="varchar" Mode="In" />
+    <Parameter Name="Email" Type="varchar" Mode="In" />
+    <Parameter Name="TribeId" Type="int" Mode="In" />
+    <Parameter Name="Password" Type="varchar" Mode="In" />
+    <Parameter Name="Age" Type="int" Mode="In" />
+  </Function>
+  <EntityContainer Name="NkdbModelStoreContainer">
+    <EntitySet Name="Tribe" EntityType="Self.Tribe" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="User" EntityType="Self.User" Schema="dbo" store:Type="Tables" />
+  </EntityContainer>
+</Schema>

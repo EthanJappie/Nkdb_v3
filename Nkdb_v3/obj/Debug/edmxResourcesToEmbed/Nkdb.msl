@@ -1,0 +1,38 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="NkdbModelStoreContainer" CdmEntityContainer="NkdbEntities">
+    <EntitySetMapping Name="Tribes">
+      <EntityTypeMapping TypeName="NkdbModel.Tribe">
+        <MappingFragment StoreEntitySet="Tribe">
+          <ScalarProperty Name="TribeId" ColumnName="TribeId" />
+          <ScalarProperty Name="TribeName" ColumnName="TribeName" />
+          <ScalarProperty Name="Visible" ColumnName="Visible" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Users">
+      <EntityTypeMapping TypeName="NkdbModel.User">
+        <MappingFragment StoreEntitySet="User">
+          <ScalarProperty Name="Age" ColumnName="Age" />
+          <ScalarProperty Name="TribeId" ColumnName="TribeId" />
+          <ScalarProperty Name="UserID" ColumnName="UserID" />
+          <ScalarProperty Name="EmailAddress" ColumnName="EmailAddress" />
+          <ScalarProperty Name="Password" ColumnName="Password" />
+          <ScalarProperty Name="Firstname" ColumnName="Firstname" />
+          <ScalarProperty Name="Middlename" ColumnName="Middlename" />
+          <ScalarProperty Name="Lastname" ColumnName="Lastname" />
+          <ScalarProperty Name="IDNumber" ColumnName="IDNumber" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <FunctionImportMapping FunctionImportName="RegisterUser" FunctionName="NkdbModel.Store.RegisterUser" />
+    <FunctionImportMapping FunctionImportName="GetTribes" FunctionName="NkdbModel.Store.GetTribes">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="NkdbModel.GetTribes_Result">
+          <ScalarProperty Name="TribeId" ColumnName="TribeId" />
+          <ScalarProperty Name="TribeName" ColumnName="TribeName" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+  </EntityContainerMapping>
+</Mapping>
