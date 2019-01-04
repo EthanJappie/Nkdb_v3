@@ -9,5 +9,6 @@ namespace Nkdb_v3.Models
     {
         public int TribeId { get; set; }
         public string TribeName { get; set; }
+        public bool Visible { get; set; }
     }
 }

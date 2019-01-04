@@ -10,6 +10,7 @@ using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using Nkdb_v3.Models;
+using Nkdb_v3.Extensions;
 
 namespace Nkdb_v3.Controllers
 {
@@ -18,7 +19,8 @@ namespace Nkdb_v3.Controllers
     {
         private ApplicationSignInManager _signInManager;
         private ApplicationUserManager _userManager;
-        private List<RegisterViewModel> _tribes = new List<RegisterViewModel>();
+        private List<TribeModels> _tribes = new List<TribeModels>();
+        private NkdbEntities nkdb = new NkdbEntities();
 
         public AccountController()
         {
@@ -59,6 +61,11 @@ namespace Nkdb_v3.Controllers
         [AllowAnonymous]
         public ActionResult Login(string returnUrl)
         {
+            using (NkdbEntities db = new NkdbEntities())
+            {
+                var tribes = db.GetTribes();
+            }
+
             ViewBag.ReturnUrl = returnUrl;
             return View();
         }
@@ -77,12 +84,14 @@ namespace Nkdb_v3.Controllers
 
             // This doesn't count login failures towards account lockout
             // To enable password failures to trigger account lockout, change to shouldLockout: true
-            var result = await SignInManager.PasswordSignInAsync(model.Email, model.Password, model.RememberMe, shouldLockout: true);
+            var result = await SignInManager.PasswordSignInAsync(model.Email, model.Password, model.RememberMe, shouldLockout: false);
+
             switch (result)
             {
                 case SignInStatus.Success:
+                    Session["UserId"] = SignInManager.AuthenticationManager.AuthenticationResponseGrant.Identity.GetUserId();
+                     
                     return RedirectToAction("Dashboard", "Dashboard");
-                    //return RedirectToLocal(returnUrl);
                 case SignInStatus.LockedOut:
                     return View("Lockout");
                 case SignInStatus.RequiresVerification:
@@ -142,7 +151,26 @@ namespace Nkdb_v3.Controllers
         [AllowAnonymous]
         public ActionResult Register()
         {
+            GetTribeList();
+
             return View();
+        }
+
+        public JsonResult GetTribeList()
+        {
+
+            NkdbEntities db = new NkdbEntities();
+            IEnumerable<SelectListItem> _tribes = db.Tribes.Select(c => new SelectListItem
+            {
+                Value = c.TribeId.ToString(),
+                Text = c.TribeName,
+                Selected = true
+
+            });            
+
+            ViewBag.selectedTribe = _tribes;
+
+            return Json(_tribes, JsonRequestBehavior.AllowGet);
         }
 
         //
@@ -152,6 +180,8 @@ namespace Nkdb_v3.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Register(RegisterViewModel model)
         {
+            GetTribeList();
+
             if (ModelState.IsValid)
             {
                 var user = new ApplicationUser { UserName = model.Email, Email = model.Email,  };
@@ -160,7 +190,15 @@ namespace Nkdb_v3.Controllers
                 {
                     using (NkdbEntities db = new NkdbEntities())
                     {
-                        db.RegisterUser(model.Firstname, model.Middlename, model.Lastname, model.IDNumber, model.Email, model.Tribe.FirstOrDefault().TribeId, model.Password,model.Age, long.Parse(user.Id));
+                        db.RegisterUser(model.Firstname, 
+                            model.Middlename, 
+                            model.Lastname, 
+                            model.IDNumber, 
+                            model.Email, 
+                            model.Tribe, 
+                            model.Password,
+                            model.Age, 
+                            new Guid(user.Id));
                     }                    
 
                     await SignInManager.SignInAsync(user, isPersistent:false, rememberBrowser:false);
@@ -171,7 +209,7 @@ namespace Nkdb_v3.Controllers
                     // var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
                     // await UserManager.SendEmailAsync(user.Id, "Confirm your account", "Please confirm your account by clicking <a href=\"" + callbackUrl + "\">here</a>");
 
-                    return RedirectToAction("Index", "Dashboard");
+                    return RedirectToAction("Dashboard", "Dashboard");
                 }
                 AddErrors(result);
             }

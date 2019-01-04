@@ -2,6 +2,207 @@
 @{
     ViewBag.Title = "Dashboard";
 }
+<div class="container-fluid">
+    <div class="row">&nbsp;</div>
 
-<h2>Dashboard</h2>
+    <div class="row">
+        <div class="col">
+            <button class="btn btn-primary" data-toggle="modal" data-target="#familyModal">Add Family Member</button>
+            <button class="btn btn-primary" data-toggle="modal" data-target="#viewfamilyModal">View Family Members</button>
+        </div>
+        <div class="col">
+           
+        </div>
+        <div class="col">
+
+        </div>
+        <div class="col">
+
+        </div>
+    </div>
+    <div class="row">
+        <div class="modal fade" id="familyModal" tabindex="-1" role="dialog" aria-labelledby="addFamilyModal" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Add a family member</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="row">
+                            <div class="col">
+                                <label for="addFirstName" class="col-md-2 control-label addFamilyForm">Firstname</label>
+                                <input type="text" id="addFirstName" class="form-control" />
+                            </div>
+                            <div class="col">
+                                <label for="addMiddlename" class="col-md-2 control-label addFamilyForm">Middlename</label>
+                                <input type="text" id="addMiddlename" class="form-control" />
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col">
+                                <label for="addLastname" class="col-md-2 control-label addFamilyForm">Lastname</label>
+                                <input type="text" id="addLastname" class="form-control" />
+                            </div>
+                            <div class="col">
+                                <label for="addIdNumber" class="col-md-9 control-label addFamilyForm">ID Number</label>
+                                <input type="text" id="addIdNumber" class="form-control" />
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col">
+                                <label for="addRelationshipType" class="col-md-10 control-label addFamilyForm">Relationship Type</label>
+                                <select id="relationshipType" class="form-control">
+                                    <option>--Select--</option>
+                                </select>
+                            </div>
+                            <div class="col">
+                                <label for="addTribeType" class="col-md-10 control-label addFamilyForm">Tribe</label>
+                                <select id="addTribeType" class="form-control">
+                                    <option>--Select--</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            &nbsp;
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                            <button type="button" class="btn btn-primary" id="saveFamilyMember">Save changes</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="modal fade" id="viewfamilyModal" tabindex="-1" role="dialog" aria-labelledby="viewFamilyModal" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Add a family member</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="row">
+                            <div class="col"></div>
+                            <div class="col"></div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+    $(function () { // will trigger when the document is ready
+
+        function MessageBox(content, messageType) {
+            messageType === 'error' ? $("#messageBoxTitle").html("<p>Error</p>") : $("#messageBoxTitle").html("<p>Message</p>");
+            $("#modalContent").html("<p>" + content + "</p>");
+            $("#messageBox").modal('show');
+        }
+
+        $('.datepicker').datepicker({
+            dateFormat: "dd-MM-yyyy"
+        }
+        ); //Initialise any date pickers
+
+        $('#idTourDateDetails').datepicker({
+            dateFormat: 'dd-mm-yy',
+            minDate: '+5d',
+            changeMonth: true,
+            changeYear: true,
+            altField: "#idTourDateDetailsHidden",
+            altFormat: "yy-mm-dd"
+        });
+
+        $.getJSON('/Dashboard/GetRelationshipTypes',
+            null,
+            function (data) {
+
+                var count = 1;
+                $.each(data, function (i , k) {
+                    $('#relationshipType').append($('<option>', {
+                        value: count,
+                        text: k
+                    }));
+
+                    count++;
+                });
+            });
+
+        $("#saveFamilyMember").on('click', function () {
+            console.log('clicked');
+            var firstName = $("#addFirstName").val();
+            if (firstname == null || firstname == '') {
+                MessageBox('Firstname cannot be empty', 'error');
+            }
+            var middleName = $("#addMiddlename").val();
+
+            var lastName = $("#addLastname").val();
+            if (lastName == null || lastName == '') {
+                MessageBox('Lastname cannot be empty', 'error');
+            }
+            var idNumber = $("#addIdNumber").val();
+            if (idNumber == null || idNumber == '') {
+                MessageBox('ID number cannot be empty', 'error');
+            }
+            var relationship = $("#relationshipType").find(":selected").val();
+            if (relationship == '--Select--') {
+                MessageBox('Please select a relationship type', 'error');
+            }
+            var tribe = $("#addTribeType").find(":selected").val();
+            if (tribe == '--Select--') {
+                MessageBox('Please select a tribe', 'error');
+            }
+            else {
+                var data = {
+                    firstname: firstName,
+                    middlename: middleName,
+                    lastname: lastName,
+                    idnumber: idNumber,
+                    relationship: relationship,
+                    tribe: tribe
+                }
+
+                $("#familyModal").modal('hide');
+
+                $.getJSON('/Dashboard/AddFamilyMember'
+                    , data
+                    , function (data) {
+                        $("#familyModal").modal('hide');
+                        MessageBox(data, 'message');
+                    });
+
+                var firstName = $("#addFirstName").val("");
+                var middleName = $("#addMiddlename").val("");
+                var lastName = $("#addLastname").val("");
+                var idNumber = $("#addIdNumber").val("");
+            }
+        });
+
+        $.getJSON('/Dashboard/GetTribes'
+            , null
+            , function (data) {
+                $.each(data, function (i, j) {
+                    $('#addTribeType').append($('<option/>', {
+                        value: j.TribeId,
+                        text: j.TribeName
+                    }));
+                });
+            });        
+    });
+</script>
+
 

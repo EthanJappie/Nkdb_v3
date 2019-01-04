@@ -1,6 +1,10 @@
 ﻿body {
     padding-top: 50px;
     padding-bottom: 20px;
+    background-image: url('images/IMG_1788.jpg');
+    background-size: 100%;
+    overflow:hidden;
+    background-repeat: no-repeat;
 }
 
 /* Set padding to keep content from hitting the edges */
@@ -21,4 +25,108 @@ input,
 select,
 textarea {
     max-width: 280px;
+}
+
+
+/*Parallax Scrolling*/
+@charset "utf-8";
+/* CSS Document */
+
+body {
+    margin: 0;
+    min-width: 980px;
+    padding: 0;
+}
+
+p {
+    margin: 0 0 20px 0;
+}
+
+p, ul {
+    font-family: "Proxima Nova Light", 'Helvetica Neue', Arial, Helvetica, sans-serif;
+    font-size-adjust: 0.488;
+    font-weight: 200;
+    font-style: normal;
+}
+
+img {
+    border: 0;
+}
+
+h1, #pixels {
+    font-family: "Museo 900", Verdana, serif;
+    font-size-adjust: 0.40;
+    font-weight: 700;
+    font-style: normal;
+}
+
+h2 {
+    font-family: "Beau Sans Pro Book", Verdana, sans-serif;
+    font-size-adjust: 0.531;
+    font-weight: 500;
+    font-style: normal;
+}
+
+#header h1, #pixels {
+    color: #48941A;
+}
+
+.float-left {
+    float: left;
+    margin: 0 0 0 20px;
+}
+
+.float-right {
+    float: right;
+    margin: 0 20px 0 0;
+}
+
+.center {
+    font-size: 2.5em;
+    padding: 80px 0 0 0;
+    text-align: center;
+}
+
+#nav {
+    list-style: none;
+    position: fixed;
+    right: 20px;
+}
+
+    #nav li {
+        margin: 0 0 15px 0;
+    }
+
+.story {
+    margin: 0 auto;
+    min-width: 980px;
+    overflow: auto;
+    width: 980px;
+}
+
+    .story .float-left, .story .float-right {
+        padding: 100px 0 0 0;
+        position: relative;
+        width: 350px;
+    }
+
+.registerForm{
+    color: ghostwhite;
+    font-weight: bolder;
+}
+
+.addFamilyForm {
+    color: darkgray;
+}
+
+body.modal-open .datepicker {
+    z-index: 100000 !important;
+}
+
+.ui-datepicker {
+    z-index: 1200 !important;
+}
+
+.clsDatePicker {
+    z-index: 100000;
 }

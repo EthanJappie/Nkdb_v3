@@ -24,5 +24,7 @@ namespace Nkdb_v3
         public Nullable<int> TribeId { get; set; }
         public Nullable<int> Age { get; set; }
         public Nullable<long> AspUserId { get; set; }
+        public Nullable<System.DateTime> DateOfBirth { get; set; }
+        public Nullable<System.Guid> WebUserId { get; set; }
     }
 }

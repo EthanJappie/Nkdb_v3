@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.Linq;
 
 namespace Nkdb_v3.Models
 {
@@ -80,12 +81,13 @@ namespace Nkdb_v3.Models
         [Display(Name ="ID Number")]
         public string IDNumber { get; set; }
 
-        [Required]
+        //[Required]
         [Display(Name = "Tribe")]
-        public List<TribeModels> Tribe { get; set; }
+        public int Tribe { get; set; }
 
         [Required]
-        public int Age { get; set; }
+        [Display(Name = "Date of Birth")]
+        public DateTime Age { get; set; }
 
         [Required]
         [EmailAddress]

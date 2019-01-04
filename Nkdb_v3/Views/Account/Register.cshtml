@@ -3,81 +3,168 @@
     ViewBag.Title = "Register";
 }
 
-<h2>@ViewBag.Title.</h2>
-
 @using (Html.BeginForm("Register", "Account", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
 {
+
+    <div class="row">&nbsp;</div>
+
+<div class="row">
+    <div class="col"></div>
+    <div class="col registerForm"><h3>Create a new account.</h3></div>
+    <div class="col"></div>
+</div>
     @Html.AntiForgeryToken()
-    <h4>Create a new account.</h4>
+    
     <hr />
-    @Html.ValidationSummary("", new { @class = "text-danger" })
-    <div class="form-group">
-        @Html.LabelFor(m => m.Firstname, new { @class = "col-md-2 control-label" })
-        <div class="col-md-10">
-            @Html.TextBoxFor(m => m.Firstname, new { @class = "form-control" })
+
+    <div class="row">
+        <div class="col"></div>
+        <div class="col">
+
         </div>
+        <div class="col"></div>
     </div>
 
-    <div class="form-group">
-        @Html.LabelFor(m => m.Middlename, new { @class = "col-md-2 control-label" })
-        <div class="col-md-10">
-            @Html.TextBoxFor(m => m.Middlename, new { @class = "form-control" })
+    <div class="row">
+        <div class="col"></div>
+        <div class="col">
+            <div class="form-group">
+                @Html.LabelFor(m => m.Firstname, new { @class = "col-md-2 control-label registerForm" })
+                <div class="col-md-10">
+                    @Html.TextBoxFor(m => m.Firstname, new { @class = "form-control" })
+                </div>
+            </div>
         </div>
+        <div class="col">
+            <div class="form-group">
+                @Html.LabelFor(m => m.Middlename, new { @class = "col-md-2 control-label registerForm" })
+                <div class="col-md-10">
+                    @Html.TextBoxFor(m => m.Middlename, new { @class = "form-control" })
+                </div>
+            </div>
+        </div>
+        <div class="col"></div>
     </div>
 
-    <div class="form-group">
-        @Html.LabelFor(m => m.Lastname, new { @class = "col-md-2 control-label" })
-        <div class="col-md-10">
-            @Html.TextBoxFor(m => m.Lastname, new { @class = "form-control" })
+    <div class="row">
+        <div class="col"></div>
+        <div class="col">
+            <div class="form-group">
+                @Html.LabelFor(m => m.Lastname, new { @class = "col-md-2 control-label registerForm" })
+                <div class="col-md-10">
+                    @Html.TextBoxFor(m => m.Lastname, new { @class = "form-control" })
+                </div>
+            </div>
         </div>
+
+        <div class="col">
+            <div class="form-group">
+                @Html.LabelFor(m => m.IDNumber, new { @class = "col-md-3 control-label registerForm" })
+                <div class="col-md-10">
+                    @Html.TextBoxFor(m => m.IDNumber, new { @class = "form-control" })
+                </div>
+            </div>
+        </div>
+        <div class="col"></div>
     </div>
 
-    <div class="form-group">
-        @Html.LabelFor(m => m.IDNumber, new { @class = "col-md-2 control-label" })
-        <div class="col-md-10">
-            @Html.TextBoxFor(m => m.IDNumber, new { @class = "form-control" })
+    <div class="row">
+        <div class="col"></div>
+        <div class="col">
+            <div class="form-group">
+
+                @Html.LabelFor(model => model.Age, new { @class = "col-md-5 control-label registerForm" })
+                <div class="col-md-10">
+                    @Html.TextBoxFor(model => model.Age, new { @class = "form-control datepicker" })
+                    @Html.ValidationMessageFor(model => model.Age)
+                </div>
+
+
+                    @*@Html.LabelFor(m => m.Age, new { @class = "col-md-6 control-label registerForm" })
+                    <div class="col-md-10">
+                        @Html.DropDownListFor(m => m.Age, Enumerable.Range(18, 43).Select(i => new SelectListItem { Text = i.ToString(), Value = i.ToString() }), new { @class = "form-control" })
+                    </div>*@
+                </div>
+            </div>
+
+        <div class="col">
+            <div class="form-group">
+                @Html.LabelFor(m => m.Email, new { @class = "col-md-2 control-label registerForm" })
+                <div class="col-md-10">
+                    @Html.TextBoxFor(m => m.Email, new { @class = "form-control" })
+                </div>
+            </div>
         </div>
+        <div class="col"></div>
     </div>
 
-    <div class="form-group">
-        @Html.LabelFor(m => m.Age, new { @class = "col-md-2 control-label" })
-        <div class="col-md-10">
-            @Html.DropDownListFor(m => m.Age, Enumerable.Range(18, 43).Select(i => new SelectListItem { Text = i.ToString(), Value = i.ToString() }), new { @class = "form-control" })
+    <div class="row">
+        <div class="col"></div>
+        <div class="col">
+            <div class="form-group">
+                @Html.LabelFor(m => m.Password, new { @class = "col-md-2 control-label registerForm" })
+                <div class="col-md-10">
+                    @Html.PasswordFor(m => m.Password, new { @class = "form-control" })
+                </div>
+            </div>
         </div>
+
+        <div class="col">
+
+            <div class="form-group">
+                @Html.LabelFor(m => m.Tribe, new { @class = "col - md - 2 control - label registerForm"})
+
+                <div class="col-md-10">
+                    @Html.DropDownListFor(m => m.Tribe, (IEnumerable<SelectListItem>)ViewBag.selectedTribe, "--Select an option--", new { @class = "form-control" })
+                </div>
+
+            </div>            
+        </div>
+        <div class="col"></div>
     </div>
 
-    @*<div class="form-group">
-        @Html.LabelFor(m => m.TribeModel, new { @class = "col-md-2 control-label" })
-        <div class="col-md-10">
-            @Html.DropDownListFor(m => m.,)
+    <div class="row">
+        <div class="col"></div>
+        <div class="col">
+            <div class="form-group">
+                @Html.LabelFor(m => m.ConfirmPassword, new { @class = "col-md-6 control-label registerForm" })
+                <div class="col-md-10">
+                    @Html.PasswordFor(m => m.ConfirmPassword, new { @class = "form-control" })
+                </div>
+            </div>
         </div>
-    </div>*@
+        <div class="col"></div>
+        <div class="col"></div>
+    </div>
 
-    <div class="form-group">
-        @Html.LabelFor(m => m.Email, new { @class = "col-md-2 control-label" })
-        <div class="col-md-10">
-            @Html.TextBoxFor(m => m.Email, new { @class = "form-control" })
+    <div class="row">&nbsp;</div>
+    <div class="row">&nbsp;</div>
+
+    <div class="row">
+        <div class="col"></div>
+        <div class="col">
+            <div class="form-group">
+                <div class="col-md-10">
+                    <input type="submit" class="btn btn-primary btn-block" value="Register" />
+                </div>
+            </div>
         </div>
+        <div class="col"></div>
+        <div class="col"></div>
     </div>
-    <div class="form-group">
-        @Html.LabelFor(m => m.Password, new { @class = "col-md-2 control-label" })
-        <div class="col-md-10">
-            @Html.PasswordFor(m => m.Password, new { @class = "form-control" })
-        </div>
-    </div>
-    <div class="form-group">
-        @Html.LabelFor(m => m.ConfirmPassword, new { @class = "col-md-2 control-label" })
-        <div class="col-md-10">
-            @Html.PasswordFor(m => m.ConfirmPassword, new { @class = "form-control" })
-        </div>
-    </div>
-    <div class="form-group">
-        <div class="col-md-offset-2 col-md-10">
-            <input type="submit" class="btn btn-primary" value="Register" />
-        </div>
-    </div>
+
+
 }
 
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
 }
+
+<script type="text/javascript">
+    $(function () { // will trigger when the document is ready
+        $('.datepicker').datepicker({
+            dateFormat: "dd-MM-yyyy"
+        }            
+        ); //Initialise any date pickers
+    });
+</script>
