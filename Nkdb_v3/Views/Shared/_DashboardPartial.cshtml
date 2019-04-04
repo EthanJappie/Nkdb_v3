@@ -1,1 +1,58 @@
-﻿
+﻿@model IEnumerable<Nkdb_v3.Models.FamilyMemberViewModels>
+
+
+@foreach (var item in Model)
+{
+    <div class="card dasboardCards ">
+        <div class="card-header">
+            <b>@item.Firstname @item.Lastname</b>
+        </div>
+        <div class="card-body">
+            <div class="form-inline">
+                <div class="col">
+                    <label for="firstname" class="control-label inputLabel">Firstname : </label>
+                </div>
+                <div class="col">
+                    <input id="firstname" type="text" disabled="disabled" class="form-control form-control-sm" value="@item.Firstname" />
+                </div>              
+            </div>
+            
+            <div class="form-inline">
+                <div class="col">
+                    <label for="middlename" class="control-label inputLabel">Middlename</label>
+                </div>
+                <div class="col">
+                    <input id="middlename" type="text" disabled="disabled" class="form-control form-control-sm" value="@item.Middlename" placeholder="Middlename empty..." />
+                </div>  
+            </div>
+
+            <div class="form-inline">
+                <div class="col">
+                    <label for="lastname" class="control-label inputLabel">Lastname</label>
+                </div>
+                <div class="col">
+                    <input id="lastname" type="text" disabled="disabled" class="form-control form-control-sm" value="@item.Lastname" />
+                </div>
+            </div>
+
+            <div class="form-inline">
+                <div class="col">
+                    <label for="tribename" class="control-label inputLabel">Tribe</label>
+                </div>
+                <div class="col">
+                    <input id="tribename" type="text" disabled="disabled" class="form-control form-control-sm" value="@item.TribeName" />
+                </div>
+            </div>
+
+            <div class="form-inline">
+                <div class="col">
+                    <label for="relationshipType" class="control-label inputLabel">Relationship</label>
+                </div>
+                <div class="col">
+                    <input id="relationshipType" type="text" disabled="disabled" class="form-control form-control-sm" value="@item.RelationshipType" />
+                </div>
+            </div>         
+        </div>
+        
+    </div>
+}

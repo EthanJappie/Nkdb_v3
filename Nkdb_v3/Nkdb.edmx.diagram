@@ -8,15 +8,15 @@
         <EntityTypeShape EntityType="NkdbModel.Tribe" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
         <EntityTypeShape EntityType="NkdbModel.User" Width="1.5" PointX="2.75" PointY="0.75" IsExpanded="true" />
         <EntityTypeShape EntityType="NkdbModel.C__MigrationHistory" Width="1.5" PointX="5.75" PointY="0.75" />
-        <EntityTypeShape EntityType="NkdbModel.AspNetRole" Width="1.5" PointX="0.75" PointY="6.5" />
-        <EntityTypeShape EntityType="NkdbModel.AspNetUserClaim" Width="1.5" PointX="5.25" PointY="7.625" />
-        <EntityTypeShape EntityType="NkdbModel.AspNetUserLogin" Width="1.5" PointX="5.25" PointY="5" />
-        <EntityTypeShape EntityType="NkdbModel.AspNetUser" Width="1.5" PointX="3" PointY="5.375" />
+        <EntityTypeShape EntityType="NkdbModel.UserFamilyMember" Width="1.5" PointX="7.375" PointY="4.75" />
+        <EntityTypeShape EntityType="NkdbModel.FamilyMember" Width="1.5" PointX="7.375" PointY="7.75" />
+        <EntityTypeShape EntityType="NkdbModel.AspNetRole" Width="1.5" PointX="9.375" PointY="2.5" />
+        <EntityTypeShape EntityType="NkdbModel.AspNetUserClaim" Width="1.5" PointX="13.875" PointY="1" />
+        <EntityTypeShape EntityType="NkdbModel.AspNetUserLogin" Width="1.5" PointX="13.875" PointY="3.75" />
+        <EntityTypeShape EntityType="NkdbModel.AspNetUser" Width="1.5" PointX="11.625" PointY="1.375" />
         <AssociationConnector Association="NkdbModel.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" />
         <AssociationConnector Association="NkdbModel.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" />
         <AssociationConnector Association="NkdbModel.AspNetUserRoles" />
-        <EntityTypeShape EntityType="NkdbModel.UserFamilyMember" Width="1.5" PointX="7.375" PointY="4.75" />
-        <EntityTypeShape EntityType="NkdbModel.FamilyMember" Width="1.5" PointX="7.375" PointY="7.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

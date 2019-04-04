@@ -195,7 +195,7 @@
     <Compile Include="FamilyMember.cs">
       <DependentUpon>Nkdb.tt</DependentUpon>
     </Compile>
-    <Compile Include="GetTribes_Result.cs">
+    <Compile Include="GetFamilyMembers_Result.cs">
       <DependentUpon>Nkdb.tt</DependentUpon>
     </Compile>
     <Compile Include="Global.asax.cs">
@@ -203,6 +203,7 @@
     </Compile>
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\DashboardViewModels.cs" />
+    <Compile Include="Models\FamilyMemberViewModels.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\TribeModels.cs" />
@@ -240,6 +241,7 @@
     <Content Include="Content\bootstrap-reboot.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\font\koliko-Regular.svg" />
     <Content Include="Content\images\ui-icons_444444_256x240.png" />
     <Content Include="Content\images\ui-icons_555555_256x240.png" />
     <Content Include="Content\images\ui-icons_777620_256x240.png" />
@@ -258,6 +260,7 @@
       <DependentUpon>Nkdb.edmx</DependentUpon>
       <LastGenOutput>Nkdb.Context.cs</LastGenOutput>
     </Content>
+    <Content Include="Nkdb.edmx.sql" />
     <Content Include="Nkdb.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>Nkdb.edmx</DependentUpon>
@@ -292,6 +295,11 @@
     <Content Include="Content\bootstrap-reboot.css.map" />
     <Content Include="Content\bootstrap-grid.min.css.map" />
     <Content Include="Content\bootstrap-grid.css.map" />
+    <Content Include="Content\font\Caveart.TTF" />
+    <Content Include="Content\font\koliko-Bold.ttf" />
+    <Content Include="Content\font\koliko-Regular.ttf" />
+    <Content Include="Content\font\koliko-Regular.woff" />
+    <None Include="Properties\PublishProfiles\CustomProfile.pubxml" />
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.3.1.js" />
     <Content Include="Scripts\jquery-3.3.1.min.js" />

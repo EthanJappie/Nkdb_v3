@@ -61,10 +61,10 @@ namespace Nkdb_v3.Controllers
         [AllowAnonymous]
         public ActionResult Login(string returnUrl)
         {
-            using (NkdbEntities db = new NkdbEntities())
-            {
-                var tribes = db.GetTribes();
-            }
+            //using (NkdbEntities db = new NkdbEntities())
+            //{
+            //    var tribes = db.GetTribes();
+            //}
 
             ViewBag.ReturnUrl = returnUrl;
             return View();
@@ -163,9 +163,7 @@ namespace Nkdb_v3.Controllers
             IEnumerable<SelectListItem> _tribes = db.Tribes.Select(c => new SelectListItem
             {
                 Value = c.TribeId.ToString(),
-                Text = c.TribeName,
-                Selected = true
-
+                Text = c.TribeName
             });            
 
             ViewBag.selectedTribe = _tribes;
@@ -202,7 +200,7 @@ namespace Nkdb_v3.Controllers
                     }                    
 
                     await SignInManager.SignInAsync(user, isPersistent:false, rememberBrowser:false);
-                    
+                    Session["UserId"] = SignInManager.AuthenticationManager.AuthenticationResponseGrant.Identity.GetUserId();
                     // For more information on how to enable account confirmation and password reset please visit https://go.microsoft.com/fwlink/?LinkID=320771
                     // Send an email with this link
                     // string code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);

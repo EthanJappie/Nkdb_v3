@@ -17,8 +17,8 @@ namespace Nkdb_v3.Controllers
 
         [Authorize]
         public ActionResult Dashboard()
-        {
-            return View();
+        {            
+            return View(GetFamilyMembers());
         }
 
         public JsonResult GetRelationshipTypes()
@@ -46,6 +46,27 @@ namespace Nkdb_v3.Controllers
             }).ToList();
 
             return Json(_tribe, JsonRequestBehavior.AllowGet);
+        }
+
+        public List<FamilyMemberViewModels> GetFamilyMembers()
+        {
+            NkdbEntities db = new NkdbEntities();
+            List<FamilyMemberViewModels> model = new List<FamilyMemberViewModels>();
+
+            var userId = Session["UserId"].ToString();
+
+            var result = db.GetFamilyMembers(userId).Select(i => new FamilyMemberViewModels {
+                FamilymemberId = i.Id,
+                Firstname = i.Firstname,
+                Middlename = i.Middlename,
+                Lastname = i.Lastname,
+                Tribe = i.Tribe,
+                RelationshipType = i.RelationshipType.ToString(),
+                IdNumber = i.IdNumber,
+                TribeName = i.TribeName
+            }).ToList();
+
+            return result;
         }
     }
 }

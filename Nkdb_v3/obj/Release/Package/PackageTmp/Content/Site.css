@@ -1,0 +1,216 @@
+﻿body {
+    /*padding-top: 50px;
+    padding-bottom: 20px;
+    background-image: url('images/IMG_1788.jpg');
+    background-size: 100%;
+    overflow: hidden;*/
+}
+
+/* Set padding to keep content from hitting the edges */
+.body-content {
+    padding-left: 5%;
+    padding-right: 5%;
+}
+
+/* Override the default bootstrap behavior where horizontal description lists 
+   will truncate terms that are too long to fit in the left column 
+*/
+.dl-horizontal dt {
+    white-space: normal;
+}
+
+/* Set width on the form input elements since they're 100% wide by default */
+input,
+select,
+textarea {
+    max-width: 280px;
+}
+
+
+
+body {
+    margin: 0;
+    min-width: 980px;
+    padding: 0;
+}
+
+p {
+    margin: 0 0 20px 0;
+}
+
+p, ul {
+    font-family: "Proxima Nova Light", 'Helvetica Neue', Arial, Helvetica, sans-serif;
+    font-size-adjust: 0.488;
+    font-weight: 200;
+    font-style: normal;
+}
+
+img {
+    border: 0;
+}
+
+h1, #pixels {
+    font-family: "Museo 900", Verdana, serif;
+    font-size-adjust: 0.40;
+    font-weight: 700;
+    font-style: normal;
+}
+
+h2 {
+    font-family: "Beau Sans Pro Book", Verdana, sans-serif;
+    font-size-adjust: 0.531;
+    font-weight: 500;
+    font-style: normal;
+}
+
+#header h1, #pixels {
+    color: #48941A;
+}
+
+.float-left {
+    float: left;
+    margin: 0 0 0 20px;
+}
+
+.float-right {
+    float: right;
+    margin: 0 20px 0 0;
+}
+
+.center {
+    font-size: 2.5em;
+    padding: 80px 0 0 0;
+    text-align: center;
+}
+
+
+.nav li {
+    font-weight:bold;
+    text-align:center;
+    margin-right:15px;
+    margin-left:15px;
+}
+
+.story {
+    margin: 0 auto;
+    min-width: 980px;
+    overflow: auto;
+    width: 980px;
+}
+
+    .story .float-left, .story .float-right {
+        padding: 100px 0 0 0;
+        position: relative;
+        width: 350px;
+    }
+
+.registerForm {
+    color: ghostwhite;
+    font-weight: bolder;
+}
+
+.addFamilyForm {
+    color: darkgray;
+}
+
+body.modal-open .datepicker {
+    z-index: 100000 !important;
+}
+
+.ui-datepicker {
+    z-index: 1200 !important;
+}
+
+.clsDatePicker {
+    z-index: 100000;
+}
+
+.dasboardCards {
+    margin: 10px;
+    font-size: 10pt;
+}
+
+.dasboardCardsInput {
+    margin-bottom: 3px;
+}
+
+.dasboardCards input {
+    margin-bottom: 3px;
+}
+
+.inputLabel {
+    float: left;
+}
+
+body {
+    background: linear-gradient(224deg, #EDC9AF, #C3A891,#E1A95F);
+    background-size: 5000% 5000%;
+    animation: AnimationName 8s ease infinite;
+}
+
+
+
+@keyframes AnimationName {
+    0% {
+        background-position: 0% 50%
+    }
+
+    50% {
+        background-position: 100% 51%
+    }
+
+    100% {
+        background-position: 0% 50%
+    }
+}
+
+
+
+@font-face {
+    font-family: "Koliko-Bold";
+    src: url("font/koliko-Bold.ttf") format('truetype');
+}
+
+@font-face {
+    font-family: "Koliko-Regular";
+    src: url("font/koliko-Regular.ttf") format('truetype');
+    src: url("font/koliko-Regular.svg") format('svg');
+    src: url("font/koliko-Regular.woff") format('woff');
+}
+
+@font-face {
+    font-family: "Caveart";
+    src: url("font/Caveart.ttf") format('truetype');
+}
+
+.mainHeading {
+    text-align: center;
+    font-family: 'Koliko-Regular';
+    font-size: 35pt;
+}
+
+.caveart {
+    font-family: 'Caveart';
+    font-size: 28pt;
+    color: maroon;
+}
+
+.nav-link{
+    font-weight: bold;
+}
+
+.card-body{
+    font-size: 14px;
+}
+
+.caveartButton {
+    font-weight: bold;
+    background-color: maroon;
+    border-color: maroon;
+}
+    .caveartButton:hover {
+        font-weight: bold;
+        background-color: white;
+        border-color: white;
+        color: maroon;
+    }

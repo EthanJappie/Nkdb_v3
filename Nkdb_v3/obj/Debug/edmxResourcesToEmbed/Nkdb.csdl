@@ -22,25 +22,38 @@
     <Property Name="TribeId" Type="Int32" />
     <Property Name="Age" Type="Int32" />
     <Property Name="AspUserId" Type="Int64" />
-    <Property Name="DateOfBirth" Type="DateTime" Precision="0" />
+    <Property Name="DateOfBirth" Type="DateTime" Precision="3" />
     <Property Name="WebUserId" Type="Guid" />
   </EntityType>
   <EntityContainer Name="NkdbEntities" annotation:LazyLoadingEnabled="true">
     <EntitySet Name="Tribes" EntityType="Self.Tribe" />
     <EntitySet Name="Users" EntityType="Self.User" />
+    <EntitySet Name="C__MigrationHistory" EntityType="NkdbModel.C__MigrationHistory" />
+    <EntitySet Name="UserFamilyMembers" EntityType="NkdbModel.UserFamilyMember" />
+    <EntitySet Name="FamilyMembers" EntityType="NkdbModel.FamilyMember" />
+    <FunctionImport Name="AddFamilyMember">
+      <Parameter Name="Firstname" Mode="In" Type="String" />
+      <Parameter Name="Middlename" Mode="In" Type="String" />
+      <Parameter Name="Lastname" Mode="In" Type="String" />
+      <Parameter Name="IdNumber" Mode="In" Type="String" />
+      <Parameter Name="Relationship" Mode="In" Type="String" />
+      <Parameter Name="Tribe" Mode="In" Type="Int32" />
+      <Parameter Name="UserId" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="GetFamilyMembers" ReturnType="Collection(NkdbModel.GetFamilyMembers_Result)">
+      <Parameter Name="UserId" Mode="In" Type="String" />
+    </FunctionImport>
     <FunctionImport Name="RegisterUser">
       <Parameter Name="Firstname" Mode="In" Type="String" />
       <Parameter Name="Middlename" Mode="In" Type="String" />
       <Parameter Name="Lastname" Mode="In" Type="String" />
-      <Parameter Name="IDNumber" Mode="In" Type="String" />
+      <Parameter Name="IdNumber" Mode="In" Type="String" />
       <Parameter Name="Email" Mode="In" Type="String" />
-      <Parameter Name="TribeId" Mode="In" Type="Int32" />
+      <Parameter Name="Tribe" Mode="In" Type="Int32" />
       <Parameter Name="Password" Mode="In" Type="String" />
-      <Parameter Name="DateOfBirth" Mode="In" Type="DateTime" />
-      <Parameter Name="AspUserId" Mode="In" Type="Guid" />
+      <Parameter Name="Age" Mode="In" Type="DateTime" />
+      <Parameter Name="UserId" Mode="In" Type="Guid" />
     </FunctionImport>
-    <FunctionImport Name="GetTribes" ReturnType="Collection(NkdbModel.GetTribes_Result)" />
-    <EntitySet Name="C__MigrationHistory" EntityType="NkdbModel.C__MigrationHistory" />
     <EntitySet Name="AspNetRoles" EntityType="NkdbModel.AspNetRole" />
     <EntitySet Name="AspNetUserClaims" EntityType="NkdbModel.AspNetUserClaim" />
     <EntitySet Name="AspNetUserLogins" EntityType="NkdbModel.AspNetUserLogin" />
@@ -57,22 +70,7 @@
       <End Role="AspNetRole" EntitySet="AspNetRoles" />
       <End Role="AspNetUser" EntitySet="AspNetUsers" />
     </AssociationSet>
-    <FunctionImport Name="AddFamilyMember" ReturnType="Collection(Decimal)">
-      <Parameter Name="Firstname" Mode="In" Type="String" />
-      <Parameter Name="Middlename" Mode="In" Type="String" />
-      <Parameter Name="Lastname" Mode="In" Type="String" />
-      <Parameter Name="IdNumber" Mode="In" Type="String" />
-      <Parameter Name="Relationship" Mode="In" Type="String" />
-      <Parameter Name="Tribe" Mode="In" Type="Int32" />
-      <Parameter Name="UserId" Mode="In" Type="String" />
-    </FunctionImport>
-    <EntitySet Name="UserFamilyMembers" EntityType="NkdbModel.UserFamilyMember" />
-    <EntitySet Name="FamilyMembers" EntityType="NkdbModel.FamilyMember" />
   </EntityContainer>
-  <ComplexType Name="GetTribes_Result">
-    <Property Type="Int32" Name="TribeId" Nullable="false" />
-    <Property Type="String" Name="TribeName" Nullable="false" MaxLength="50" />
-  </ComplexType>
   <EntityType Name="C__MigrationHistory">
     <Key>
       <PropertyRef Name="MigrationId" />
@@ -83,6 +81,39 @@
     <Property Name="Model" Type="Binary" Nullable="false" MaxLength="Max" FixedLength="false" />
     <Property Name="ProductVersion" Type="String" Nullable="false" MaxLength="32" FixedLength="false" Unicode="true" />
   </EntityType>
+  <EntityType Name="UserFamilyMember">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="UserId" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="FamilyMemberId" Type="Int32" />
+  </EntityType>
+  <EntityType Name="FamilyMember">
+    <Key>
+      <PropertyRef Name="Id" />
+      <PropertyRef Name="Firstname" />
+      <PropertyRef Name="Lastname" />
+      <PropertyRef Name="IdNumber" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Firstname" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Middlename" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Lastname" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Tribe" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="RelationshipType" Type="Int32" />
+    <Property Name="IdNumber" Type="String" Nullable="false" MaxLength="13" FixedLength="false" Unicode="false" />
+  </EntityType>
+  <ComplexType Name="GetFamilyMembers_Result">
+    <Property Type="Int32" Name="Id" Nullable="false" />
+    <Property Type="String" Name="Firstname" Nullable="false" MaxLength="50" />
+    <Property Type="String" Name="Middlename" Nullable="true" MaxLength="50" />
+    <Property Type="String" Name="Lastname" Nullable="false" MaxLength="50" />
+    <Property Type="String" Name="Tribe" Nullable="true" MaxLength="50" />
+    <Property Type="Int32" Name="RelationshipType" Nullable="true" />
+    <Property Type="String" Name="IdNumber" Nullable="false" MaxLength="13" />
+    <Property Type="String" Name="TribeName" Nullable="false" MaxLength="50" />
+  </ComplexType>
   <EntityType Name="AspNetRole">
     <Key>
       <PropertyRef Name="Id" />
@@ -164,27 +195,4 @@
     <End Type="NkdbModel.AspNetRole" Role="AspNetRole" Multiplicity="*" />
     <End Type="NkdbModel.AspNetUser" Role="AspNetUser" Multiplicity="*" />
   </Association>
-  <EntityType Name="UserFamilyMember">
-    <Key>
-      <PropertyRef Name="Id" />
-    </Key>
-    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Name="UserId" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
-    <Property Name="FamilyMemberId" Type="Int32" />
-  </EntityType>
-  <EntityType Name="FamilyMember">
-    <Key>
-      <PropertyRef Name="Id" />
-      <PropertyRef Name="Firstname" />
-      <PropertyRef Name="Lastname" />
-      <PropertyRef Name="IdNumber" />
-    </Key>
-    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Name="Firstname" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
-    <Property Name="Middlename" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-    <Property Name="Lastname" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
-    <Property Name="Tribe" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-    <Property Name="RelationshipType" Type="Int32" />
-    <Property Name="IdNumber" Type="String" Nullable="false" MaxLength="13" FixedLength="false" Unicode="false" />
-  </EntityType>
 </Schema>

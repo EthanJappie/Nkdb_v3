@@ -2,8 +2,8 @@
 <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
   <EntityContainerMapping StorageEntityContainer="NkdbModelStoreContainer" CdmEntityContainer="NkdbEntities">
     <EntitySetMapping Name="Tribes">
-      <EntityTypeMapping TypeName="NkdbModel.Tribe">
-        <MappingFragment StoreEntitySet="Tribe">
+      <EntityTypeMapping TypeName="IsTypeOf(NkdbModel.Tribe)">
+        <MappingFragment StoreEntitySet="Tribes">
           <ScalarProperty Name="TribeId" ColumnName="TribeId" />
           <ScalarProperty Name="TribeName" ColumnName="TribeName" />
           <ScalarProperty Name="Visible" ColumnName="Visible" />
@@ -11,13 +11,8 @@
       </EntityTypeMapping>
     </EntitySetMapping>
     <EntitySetMapping Name="Users">
-      <EntityTypeMapping TypeName="NkdbModel.User">
-        <MappingFragment StoreEntitySet="User">
-          <ScalarProperty Name="WebUserId" ColumnName="WebUserId" />
-          <ScalarProperty Name="DateOfBirth" ColumnName="DateOfBirth" />
-          <ScalarProperty Name="AspUserId" ColumnName="AspUserId" />
-          <ScalarProperty Name="Age" ColumnName="Age" />
-          <ScalarProperty Name="TribeId" ColumnName="TribeId" />
+      <EntityTypeMapping TypeName="IsTypeOf(NkdbModel.User)">
+        <MappingFragment StoreEntitySet="Users">
           <ScalarProperty Name="UserID" ColumnName="UserID" />
           <ScalarProperty Name="EmailAddress" ColumnName="EmailAddress" />
           <ScalarProperty Name="Password" ColumnName="Password" />
@@ -25,28 +20,62 @@
           <ScalarProperty Name="Middlename" ColumnName="Middlename" />
           <ScalarProperty Name="Lastname" ColumnName="Lastname" />
           <ScalarProperty Name="IDNumber" ColumnName="IDNumber" />
+          <ScalarProperty Name="TribeId" ColumnName="TribeId" />
+          <ScalarProperty Name="Age" ColumnName="Age" />
+          <ScalarProperty Name="AspUserId" ColumnName="AspUserId" />
+          <ScalarProperty Name="DateOfBirth" ColumnName="DateOfBirth" />
+          <ScalarProperty Name="WebUserId" ColumnName="WebUserId" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
-    <FunctionImportMapping FunctionImportName="RegisterUser" FunctionName="NkdbModel.Store.RegisterUser" />
-    <FunctionImportMapping FunctionImportName="GetTribes" FunctionName="NkdbModel.Store.GetTribes">
+    <EntitySetMapping Name="C__MigrationHistory">
+      <EntityTypeMapping TypeName="IsTypeOf(NkdbModel.C__MigrationHistory)">
+        <MappingFragment StoreEntitySet="C__MigrationHistory">
+          <ScalarProperty Name="MigrationId" ColumnName="MigrationId" />
+          <ScalarProperty Name="ContextKey" ColumnName="ContextKey" />
+          <ScalarProperty Name="Model" ColumnName="Model" />
+          <ScalarProperty Name="ProductVersion" ColumnName="ProductVersion" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="UserFamilyMembers">
+      <EntityTypeMapping TypeName="IsTypeOf(NkdbModel.UserFamilyMember)">
+        <MappingFragment StoreEntitySet="UserFamilyMembers">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="UserId" ColumnName="UserId" />
+          <ScalarProperty Name="FamilyMemberId" ColumnName="FamilyMemberId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="FamilyMembers">
+      <EntityTypeMapping TypeName="IsTypeOf(NkdbModel.FamilyMember)">
+        <MappingFragment StoreEntitySet="FamilyMembers">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Firstname" ColumnName="Firstname" />
+          <ScalarProperty Name="Lastname" ColumnName="Lastname" />
+          <ScalarProperty Name="IdNumber" ColumnName="IdNumber" />
+          <ScalarProperty Name="Middlename" ColumnName="Middlename" />
+          <ScalarProperty Name="Tribe" ColumnName="Tribe" />
+          <ScalarProperty Name="RelationshipType" ColumnName="RelationshipType" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <FunctionImportMapping FunctionImportName="AddFamilyMember" FunctionName="NkdbModel.Store.AddFamilyMember" />
+    <FunctionImportMapping FunctionImportName="GetFamilyMembers" FunctionName="NkdbModel.Store.GetFamilyMembers">
       <ResultMapping>
-        <ComplexTypeMapping TypeName="NkdbModel.GetTribes_Result">
-          <ScalarProperty Name="TribeId" ColumnName="TribeId" />
+        <ComplexTypeMapping TypeName="NkdbModel.GetFamilyMembers_Result">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Firstname" ColumnName="Firstname" />
+          <ScalarProperty Name="Middlename" ColumnName="Middlename" />
+          <ScalarProperty Name="Lastname" ColumnName="Lastname" />
+          <ScalarProperty Name="Tribe" ColumnName="Tribe" />
+          <ScalarProperty Name="RelationshipType" ColumnName="RelationshipType" />
+          <ScalarProperty Name="IdNumber" ColumnName="IdNumber" />
           <ScalarProperty Name="TribeName" ColumnName="TribeName" />
         </ComplexTypeMapping>
       </ResultMapping>
     </FunctionImportMapping>
-    <EntitySetMapping Name="C__MigrationHistory">
-      <EntityTypeMapping TypeName="NkdbModel.C__MigrationHistory">
-        <MappingFragment StoreEntitySet="__MigrationHistory">
-          <ScalarProperty Name="ProductVersion" ColumnName="ProductVersion" />
-          <ScalarProperty Name="Model" ColumnName="Model" />
-          <ScalarProperty Name="ContextKey" ColumnName="ContextKey" />
-          <ScalarProperty Name="MigrationId" ColumnName="MigrationId" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
+    <FunctionImportMapping FunctionImportName="RegisterUser" FunctionName="NkdbModel.Store.RegisterUser" />
     <EntitySetMapping Name="AspNetRoles">
       <EntityTypeMapping TypeName="NkdbModel.AspNetRole">
         <MappingFragment StoreEntitySet="AspNetRoles">
@@ -100,28 +129,5 @@
         <ScalarProperty Name="Id" ColumnName="RoleId" />
       </EndProperty>
     </AssociationSetMapping>
-    <FunctionImportMapping FunctionImportName="AddFamilyMember" FunctionName="NkdbModel.Store.AddFamilyMember" />
-    <EntitySetMapping Name="UserFamilyMembers">
-      <EntityTypeMapping TypeName="NkdbModel.UserFamilyMember">
-        <MappingFragment StoreEntitySet="UserFamilyMember">
-          <ScalarProperty Name="FamilyMemberId" ColumnName="FamilyMemberId" />
-          <ScalarProperty Name="UserId" ColumnName="UserId" />
-          <ScalarProperty Name="Id" ColumnName="Id" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
-    <EntitySetMapping Name="FamilyMembers">
-      <EntityTypeMapping TypeName="NkdbModel.FamilyMember">
-        <MappingFragment StoreEntitySet="FamilyMember">
-          <ScalarProperty Name="IdNumber" ColumnName="IdNumber" />
-          <ScalarProperty Name="RelationshipType" ColumnName="RelationshipType" />
-          <ScalarProperty Name="Tribe" ColumnName="Tribe" />
-          <ScalarProperty Name="Lastname" ColumnName="Lastname" />
-          <ScalarProperty Name="Middlename" ColumnName="Middlename" />
-          <ScalarProperty Name="Firstname" ColumnName="Firstname" />
-          <ScalarProperty Name="Id" ColumnName="Id" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
   </EntityContainerMapping>
 </Mapping>

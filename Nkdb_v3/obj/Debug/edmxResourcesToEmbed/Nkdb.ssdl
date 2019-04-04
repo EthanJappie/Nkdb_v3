@@ -1,15 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Schema Namespace="NkdbModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
-  <EntityType Name="__MigrationHistory">
-    <Key>
-      <PropertyRef Name="MigrationId" />
-      <PropertyRef Name="ContextKey" />
-    </Key>
-    <Property Name="MigrationId" Type="nvarchar" MaxLength="150" Nullable="false" />
-    <Property Name="ContextKey" Type="nvarchar" MaxLength="300" Nullable="false" />
-    <Property Name="Model" Type="varbinary(max)" Nullable="false" />
-    <Property Name="ProductVersion" Type="nvarchar" MaxLength="32" Nullable="false" />
-  </EntityType>
   <EntityType Name="AspNetRoles">
     <Key>
       <PropertyRef Name="Id" />
@@ -38,11 +28,11 @@
   </EntityType>
   <EntityType Name="AspNetUserRoles">
     <Key>
-      <PropertyRef Name="UserId" />
       <PropertyRef Name="RoleId" />
+      <PropertyRef Name="UserId" />
     </Key>
-    <Property Name="UserId" Type="nvarchar" MaxLength="128" Nullable="false" />
     <Property Name="RoleId" Type="nvarchar" MaxLength="128" Nullable="false" />
+    <Property Name="UserId" Type="nvarchar" MaxLength="128" Nullable="false" />
   </EntityType>
   <EntityType Name="AspNetUsers">
     <Key>
@@ -61,9 +51,17 @@
     <Property Name="AccessFailedCount" Type="int" Nullable="false" />
     <Property Name="UserName" Type="nvarchar" MaxLength="256" Nullable="false" />
   </EntityType>
-  <!--Errors Found During Generation:
-warning 6002: The table/view 'Nkdb.dbo.FamilyMember' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
-  <EntityType Name="FamilyMember">
+  <EntityType Name="C__MigrationHistory">
+    <Key>
+      <PropertyRef Name="MigrationId" />
+      <PropertyRef Name="ContextKey" />
+    </Key>
+    <Property Name="MigrationId" Type="nvarchar" MaxLength="150" Nullable="false" />
+    <Property Name="ContextKey" Type="nvarchar" MaxLength="300" Nullable="false" />
+    <Property Name="Model" Type="varbinary(max)" Nullable="false" />
+    <Property Name="ProductVersion" Type="nvarchar" MaxLength="32" Nullable="false" />
+  </EntityType>
+  <EntityType Name="FamilyMembers">
     <Key>
       <PropertyRef Name="Id" />
       <PropertyRef Name="Firstname" />
@@ -78,7 +76,7 @@ warning 6002: The table/view 'Nkdb.dbo.FamilyMember' does not have a primary key
     <Property Name="RelationshipType" Type="int" />
     <Property Name="IdNumber" Type="varchar" MaxLength="13" Nullable="false" />
   </EntityType>
-  <EntityType Name="Tribe">
+  <EntityType Name="Tribes">
     <Key>
       <PropertyRef Name="TribeId" />
     </Key>
@@ -86,7 +84,15 @@ warning 6002: The table/view 'Nkdb.dbo.FamilyMember' does not have a primary key
     <Property Name="TribeName" Type="varchar" MaxLength="50" Nullable="false" />
     <Property Name="Visible" Type="bit" Nullable="false" />
   </EntityType>
-  <EntityType Name="User">
+  <EntityType Name="UserFamilyMembers">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="UserId" Type="varchar" MaxLength="100" />
+    <Property Name="FamilyMemberId" Type="int" />
+  </EntityType>
+  <EntityType Name="Users">
     <Key>
       <PropertyRef Name="UserID" />
     </Key>
@@ -100,19 +106,33 @@ warning 6002: The table/view 'Nkdb.dbo.FamilyMember' does not have a primary key
     <Property Name="TribeId" Type="int" />
     <Property Name="Age" Type="int" />
     <Property Name="AspUserId" Type="bigint" />
-    <Property Name="DateOfBirth" Type="date" />
+    <Property Name="DateOfBirth" Type="datetime" />
     <Property Name="WebUserId" Type="uniqueidentifier" />
   </EntityType>
-  <!--Errors Found During Generation:
-warning 6002: The table/view 'Nkdb.dbo.UserFamilyMember' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
-  <EntityType Name="UserFamilyMember">
-    <Key>
-      <PropertyRef Name="Id" />
-    </Key>
-    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="UserId" Type="varchar" MaxLength="100" />
-    <Property Name="FamilyMemberId" Type="int" />
-  </EntityType>
+  <Association Name="FK_AspNetUserRoles_AspNetRole">
+    <End Role="AspNetRoles" Type="Self.AspNetRoles" Multiplicity="1" />
+    <End Role="AspNetUserRoles" Type="Self.AspNetUserRoles" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AspNetRoles">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="AspNetUserRoles">
+        <PropertyRef Name="RoleId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_AspNetUserRoles_AspNetUser">
+    <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1" />
+    <End Role="AspNetUserRoles" Type="Self.AspNetUserRoles" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AspNetUsers">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="AspNetUserRoles">
+        <PropertyRef Name="UserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
   <Association Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId">
     <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1">
       <OnDelete Action="Cascade" />
@@ -141,34 +161,6 @@ warning 6002: The table/view 'Nkdb.dbo.UserFamilyMember' does not have a primary
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK_dbo_AspNetUserRoles_dbo_AspNetRoles_RoleId">
-    <End Role="AspNetRoles" Type="Self.AspNetRoles" Multiplicity="1">
-      <OnDelete Action="Cascade" />
-    </End>
-    <End Role="AspNetUserRoles" Type="Self.AspNetUserRoles" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="AspNetRoles">
-        <PropertyRef Name="Id" />
-      </Principal>
-      <Dependent Role="AspNetUserRoles">
-        <PropertyRef Name="RoleId" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="FK_dbo_AspNetUserRoles_dbo_AspNetUsers_UserId">
-    <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1">
-      <OnDelete Action="Cascade" />
-    </End>
-    <End Role="AspNetUserRoles" Type="Self.AspNetUserRoles" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="AspNetUsers">
-        <PropertyRef Name="Id" />
-      </Principal>
-      <Dependent Role="AspNetUserRoles">
-        <PropertyRef Name="UserId" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
   <Function Name="AddFamilyMember" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
     <Parameter Name="Firstname" Type="varchar" Mode="In" />
     <Parameter Name="Middlename" Type="varchar" Mode="In" />
@@ -178,45 +170,39 @@ warning 6002: The table/view 'Nkdb.dbo.UserFamilyMember' does not have a primary
     <Parameter Name="Tribe" Type="int" Mode="In" />
     <Parameter Name="UserId" Type="varchar" Mode="In" />
   </Function>
-  <Function Name="GetTribes" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+  <Function Name="GetFamilyMembers" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="UserId" Type="varchar" Mode="In" />
+  </Function>
   <Function Name="RegisterUser" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
     <Parameter Name="Firstname" Type="varchar" Mode="In" />
     <Parameter Name="Middlename" Type="varchar" Mode="In" />
     <Parameter Name="Lastname" Type="varchar" Mode="In" />
-    <Parameter Name="IDNumber" Type="varchar" Mode="In" />
+    <Parameter Name="IdNumber" Type="varchar" Mode="In" />
     <Parameter Name="Email" Type="varchar" Mode="In" />
-    <Parameter Name="TribeId" Type="int" Mode="In" />
+    <Parameter Name="Tribe" Type="int" Mode="In" />
     <Parameter Name="Password" Type="varchar" Mode="In" />
-    <Parameter Name="DateOfBirth" Type="date" Mode="In" />
-    <Parameter Name="AspUserId" Type="uniqueidentifier" Mode="In" />
+    <Parameter Name="Age" Type="date" Mode="In" />
+    <Parameter Name="UserId" Type="uniqueidentifier" Mode="In" />
   </Function>
   <EntityContainer Name="NkdbModelStoreContainer">
-    <EntitySet Name="__MigrationHistory" EntityType="Self.__MigrationHistory" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="AspNetRoles" EntityType="Self.AspNetRoles" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="AspNetUserClaims" EntityType="Self.AspNetUserClaims" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="AspNetUserLogins" EntityType="Self.AspNetUserLogins" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="AspNetUserRoles" EntityType="Self.AspNetUserRoles" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="AspNetUsers" EntityType="Self.AspNetUsers" Schema="dbo" store:Type="Tables" />
-    <EntitySet Name="Tribe" EntityType="Self.Tribe" Schema="dbo" store:Type="Tables" />
-    <EntitySet Name="User" EntityType="Self.User" Schema="dbo" store:Type="Tables" />
-    <EntitySet Name="FamilyMember" EntityType="Self.FamilyMember" store:Type="Tables" store:Schema="dbo">
-      <DefiningQuery>SELECT 
-    [FamilyMember].[Id] AS [Id], 
-    [FamilyMember].[Firstname] AS [Firstname], 
-    [FamilyMember].[Middlename] AS [Middlename], 
-    [FamilyMember].[Lastname] AS [Lastname], 
-    [FamilyMember].[Tribe] AS [Tribe], 
-    [FamilyMember].[RelationshipType] AS [RelationshipType], 
-    [FamilyMember].[IdNumber] AS [IdNumber]
-    FROM [dbo].[FamilyMember] AS [FamilyMember]</DefiningQuery>
-    </EntitySet>
-    <EntitySet Name="UserFamilyMember" EntityType="Self.UserFamilyMember" store:Type="Tables" store:Schema="dbo">
-      <DefiningQuery>SELECT 
-    [UserFamilyMember].[Id] AS [Id], 
-    [UserFamilyMember].[UserId] AS [UserId], 
-    [UserFamilyMember].[FamilyMemberId] AS [FamilyMemberId]
-    FROM [dbo].[UserFamilyMember] AS [UserFamilyMember]</DefiningQuery>
-    </EntitySet>
+    <EntitySet Name="C__MigrationHistory" EntityType="Self.C__MigrationHistory" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="FamilyMembers" EntityType="Self.FamilyMembers" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Tribes" EntityType="Self.Tribes" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="UserFamilyMembers" EntityType="Self.UserFamilyMembers" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Users" EntityType="Self.Users" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK_AspNetUserRoles_AspNetRole" Association="Self.FK_AspNetUserRoles_AspNetRole">
+      <End Role="AspNetRoles" EntitySet="AspNetRoles" />
+      <End Role="AspNetUserRoles" EntitySet="AspNetUserRoles" />
+    </AssociationSet>
+    <AssociationSet Name="FK_AspNetUserRoles_AspNetUser" Association="Self.FK_AspNetUserRoles_AspNetUser">
+      <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+      <End Role="AspNetUserRoles" EntitySet="AspNetUserRoles" />
+    </AssociationSet>
     <AssociationSet Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" Association="Self.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId">
       <End Role="AspNetUsers" EntitySet="AspNetUsers" />
       <End Role="AspNetUserClaims" EntitySet="AspNetUserClaims" />
@@ -224,14 +210,6 @@ warning 6002: The table/view 'Nkdb.dbo.UserFamilyMember' does not have a primary
     <AssociationSet Name="FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" Association="Self.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId">
       <End Role="AspNetUsers" EntitySet="AspNetUsers" />
       <End Role="AspNetUserLogins" EntitySet="AspNetUserLogins" />
-    </AssociationSet>
-    <AssociationSet Name="FK_dbo_AspNetUserRoles_dbo_AspNetRoles_RoleId" Association="Self.FK_dbo_AspNetUserRoles_dbo_AspNetRoles_RoleId">
-      <End Role="AspNetRoles" EntitySet="AspNetRoles" />
-      <End Role="AspNetUserRoles" EntitySet="AspNetUserRoles" />
-    </AssociationSet>
-    <AssociationSet Name="FK_dbo_AspNetUserRoles_dbo_AspNetUsers_UserId" Association="Self.FK_dbo_AspNetUserRoles_dbo_AspNetUsers_UserId">
-      <End Role="AspNetUsers" EntitySet="AspNetUsers" />
-      <End Role="AspNetUserRoles" EntitySet="AspNetUserRoles" />
     </AssociationSet>
   </EntityContainer>
 </Schema>

@@ -1,3 +1,5 @@
+C:\Users\jappiee\Documents\Visual Studio 2017\Projects\Nkdb_v3\Nkdb_v3\obj\Debug\Nkdb_v3.csprojAssemblyReference.cache
+C:\Users\jappiee\Documents\Visual Studio 2017\Projects\Nkdb_v3\Nkdb_v3\obj\Debug\Nkdb_v3.csproj.CoreCompileInputs.cache
 C:\Users\jappiee\Documents\Visual Studio 2017\Projects\Nkdb_v3\Nkdb_v3\bin\Nkdb_v3.dll.config
 C:\Users\jappiee\Documents\Visual Studio 2017\Projects\Nkdb_v3\Nkdb_v3\bin\Nkdb_v3.dll
 C:\Users\jappiee\Documents\Visual Studio 2017\Projects\Nkdb_v3\Nkdb_v3\bin\Nkdb_v3.pdb
@@ -106,7 +108,6 @@ C:\Users\jappiee\Documents\Visual Studio 2017\Projects\Nkdb_v3\Nkdb_v3\bin\Micro
 C:\Users\jappiee\Documents\Visual Studio 2017\Projects\Nkdb_v3\Nkdb_v3\bin\Microsoft.Owin.Security.Twitter.xml
 C:\Users\jappiee\Documents\Visual Studio 2017\Projects\Nkdb_v3\Nkdb_v3\bin\Microsoft.Owin.Security.MicrosoftAccount.xml
 C:\Users\jappiee\Documents\Visual Studio 2017\Projects\Nkdb_v3\Nkdb_v3\bin\Microsoft.Owin.Security.OAuth.xml
-C:\Users\jappiee\Documents\Visual Studio 2017\Projects\Nkdb_v3\Nkdb_v3\obj\Debug\Nkdb_v3.csproj.CoreCompileInputs.cache
 C:\Users\jappiee\Documents\Visual Studio 2017\Projects\Nkdb_v3\Nkdb_v3\obj\Debug\Nkdb_v3.csproj.CopyComplete
 C:\Users\jappiee\Documents\Visual Studio 2017\Projects\Nkdb_v3\Nkdb_v3\obj\Debug\Nkdb_v3.dll
 C:\Users\jappiee\Documents\Visual Studio 2017\Projects\Nkdb_v3\Nkdb_v3\obj\Debug\Nkdb_v3.pdb

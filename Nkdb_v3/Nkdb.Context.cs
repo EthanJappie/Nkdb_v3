@@ -30,60 +30,14 @@ namespace Nkdb_v3
         public virtual DbSet<Tribe> Tribes { get; set; }
         public virtual DbSet<User> Users { get; set; }
         public virtual DbSet<C__MigrationHistory> C__MigrationHistory { get; set; }
+        public virtual DbSet<UserFamilyMember> UserFamilyMembers { get; set; }
+        public virtual DbSet<FamilyMember> FamilyMembers { get; set; }
         public virtual DbSet<AspNetRole> AspNetRoles { get; set; }
         public virtual DbSet<AspNetUserClaim> AspNetUserClaims { get; set; }
         public virtual DbSet<AspNetUserLogin> AspNetUserLogins { get; set; }
         public virtual DbSet<AspNetUser> AspNetUsers { get; set; }
-        public virtual DbSet<UserFamilyMember> UserFamilyMembers { get; set; }
-        public virtual DbSet<FamilyMember> FamilyMembers { get; set; }
     
-        public virtual int RegisterUser(string firstname, string middlename, string lastname, string iDNumber, string email, Nullable<int> tribeId, string password, Nullable<System.DateTime> dateOfBirth, Nullable<System.Guid> aspUserId)
-        {
-            var firstnameParameter = firstname != null ?
-                new ObjectParameter("Firstname", firstname) :
-                new ObjectParameter("Firstname", typeof(string));
-    
-            var middlenameParameter = middlename != null ?
-                new ObjectParameter("Middlename", middlename) :
-                new ObjectParameter("Middlename", typeof(string));
-    
-            var lastnameParameter = lastname != null ?
-                new ObjectParameter("Lastname", lastname) :
-                new ObjectParameter("Lastname", typeof(string));
-    
-            var iDNumberParameter = iDNumber != null ?
-                new ObjectParameter("IDNumber", iDNumber) :
-                new ObjectParameter("IDNumber", typeof(string));
-    
-            var emailParameter = email != null ?
-                new ObjectParameter("Email", email) :
-                new ObjectParameter("Email", typeof(string));
-    
-            var tribeIdParameter = tribeId.HasValue ?
-                new ObjectParameter("TribeId", tribeId) :
-                new ObjectParameter("TribeId", typeof(int));
-    
-            var passwordParameter = password != null ?
-                new ObjectParameter("Password", password) :
-                new ObjectParameter("Password", typeof(string));
-    
-            var dateOfBirthParameter = dateOfBirth.HasValue ?
-                new ObjectParameter("DateOfBirth", dateOfBirth) :
-                new ObjectParameter("DateOfBirth", typeof(System.DateTime));
-    
-            var aspUserIdParameter = aspUserId.HasValue ?
-                new ObjectParameter("AspUserId", aspUserId) :
-                new ObjectParameter("AspUserId", typeof(System.Guid));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("RegisterUser", firstnameParameter, middlenameParameter, lastnameParameter, iDNumberParameter, emailParameter, tribeIdParameter, passwordParameter, dateOfBirthParameter, aspUserIdParameter);
-        }
-    
-        public virtual ObjectResult<GetTribes_Result> GetTribes()
-        {
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<GetTribes_Result>("GetTribes");
-        }
-    
-        public virtual ObjectResult<Nullable<decimal>> AddFamilyMember(string firstname, string middlename, string lastname, string idNumber, string relationship, Nullable<int> tribe, string userId)
+        public virtual int AddFamilyMember(string firstname, string middlename, string lastname, string idNumber, string relationship, Nullable<int> tribe, string userId)
         {
             var firstnameParameter = firstname != null ?
                 new ObjectParameter("Firstname", firstname) :
@@ -113,7 +67,57 @@ namespace Nkdb_v3
                 new ObjectParameter("UserId", userId) :
                 new ObjectParameter("UserId", typeof(string));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<decimal>>("AddFamilyMember", firstnameParameter, middlenameParameter, lastnameParameter, idNumberParameter, relationshipParameter, tribeParameter, userIdParameter);
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("AddFamilyMember", firstnameParameter, middlenameParameter, lastnameParameter, idNumberParameter, relationshipParameter, tribeParameter, userIdParameter);
+        }
+    
+        public virtual ObjectResult<GetFamilyMembers_Result> GetFamilyMembers(string userId)
+        {
+            var userIdParameter = userId != null ?
+                new ObjectParameter("UserId", userId) :
+                new ObjectParameter("UserId", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<GetFamilyMembers_Result>("GetFamilyMembers", userIdParameter);
+        }
+    
+        public virtual int RegisterUser(string firstname, string middlename, string lastname, string idNumber, string email, Nullable<int> tribe, string password, Nullable<System.DateTime> age, Nullable<System.Guid> userId)
+        {
+            var firstnameParameter = firstname != null ?
+                new ObjectParameter("Firstname", firstname) :
+                new ObjectParameter("Firstname", typeof(string));
+    
+            var middlenameParameter = middlename != null ?
+                new ObjectParameter("Middlename", middlename) :
+                new ObjectParameter("Middlename", typeof(string));
+    
+            var lastnameParameter = lastname != null ?
+                new ObjectParameter("Lastname", lastname) :
+                new ObjectParameter("Lastname", typeof(string));
+    
+            var idNumberParameter = idNumber != null ?
+                new ObjectParameter("IdNumber", idNumber) :
+                new ObjectParameter("IdNumber", typeof(string));
+    
+            var emailParameter = email != null ?
+                new ObjectParameter("Email", email) :
+                new ObjectParameter("Email", typeof(string));
+    
+            var tribeParameter = tribe.HasValue ?
+                new ObjectParameter("Tribe", tribe) :
+                new ObjectParameter("Tribe", typeof(int));
+    
+            var passwordParameter = password != null ?
+                new ObjectParameter("Password", password) :
+                new ObjectParameter("Password", typeof(string));
+    
+            var ageParameter = age.HasValue ?
+                new ObjectParameter("Age", age) :
+                new ObjectParameter("Age", typeof(System.DateTime));
+    
+            var userIdParameter = userId.HasValue ?
+                new ObjectParameter("UserId", userId) :
+                new ObjectParameter("UserId", typeof(System.Guid));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("RegisterUser", firstnameParameter, middlenameParameter, lastnameParameter, idNumberParameter, emailParameter, tribeParameter, passwordParameter, ageParameter, userIdParameter);
         }
     }
 }
