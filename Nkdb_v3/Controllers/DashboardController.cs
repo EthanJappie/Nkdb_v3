@@ -61,7 +61,7 @@ namespace Nkdb_v3.Controllers
                 Middlename = i.Middlename,
                 Lastname = i.Lastname,
                 Tribe = i.Tribe,
-                RelationshipType = i.RelationshipType.ToString(),
+                RelationshipType = ((RelationshipType)i.RelationshipType).ToString(),
                 IdNumber = i.IdNumber,
                 TribeName = i.TribeName
             }).ToList();

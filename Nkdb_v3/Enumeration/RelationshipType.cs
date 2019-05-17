@@ -7,10 +7,12 @@ namespace Nkdb_v3.Enumeration
 {
     public enum RelationshipType
     {
-        Mother,
+        Mother = 1,
         Father,
         Son,
         Daughter,
+        Brother,
+        Sister,
         Boyfriend,
         Girlfriend,
         Grandfather,
