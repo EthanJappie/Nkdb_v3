@@ -60,7 +60,6 @@ C:\Users\jappiee\Documents\Visual Studio 2017\Projects\Nkdb_v3\Nkdb_v3\bin\Micro
 C:\Users\jappiee\Documents\Visual Studio 2017\Projects\Nkdb_v3\Nkdb_v3\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll
 C:\Users\jappiee\Documents\Visual Studio 2017\Projects\Nkdb_v3\Nkdb_v3\bin\Microsoft.Owin.dll
 C:\Users\jappiee\Documents\Visual Studio 2017\Projects\Nkdb_v3\Nkdb_v3\bin\Microsoft.Owin.Host.SystemWeb.dll
-C:\Users\jappiee\Documents\Visual Studio 2017\Projects\Nkdb_v3\Nkdb_v3\bin\Microsoft.Owin.Security.Cookies.dll
 C:\Users\jappiee\Documents\Visual Studio 2017\Projects\Nkdb_v3\Nkdb_v3\bin\Microsoft.Owin.Security.dll
 C:\Users\jappiee\Documents\Visual Studio 2017\Projects\Nkdb_v3\Nkdb_v3\bin\Microsoft.Owin.Security.Facebook.dll
 C:\Users\jappiee\Documents\Visual Studio 2017\Projects\Nkdb_v3\Nkdb_v3\bin\Microsoft.Owin.Security.Google.dll
